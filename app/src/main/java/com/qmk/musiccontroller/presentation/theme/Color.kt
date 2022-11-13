@@ -1,4 +1,4 @@
-package com.qmk.musiccontroller.ui.theme
+package com.qmk.musiccontroller.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
