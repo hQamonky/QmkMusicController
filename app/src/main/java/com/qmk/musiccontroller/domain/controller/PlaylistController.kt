@@ -7,13 +7,14 @@ import com.qmk.musiccontroller.data.model.PlaylistEntry
 import com.qmk.musiccontroller.domain.model.PlaylistModel
 
 class PlaylistController {
+    private val tag = "PlaylistController"
     private val playlistsAPI = RetrofitHelper.getInstance().create(PlaylistsAPI::class.java)
 
     suspend fun getPlaylists(): List<PlaylistModel> {
         val playlists = playlistsAPI.getPlaylists().body()?.map {
             PlaylistModel(it.id, it.name, it.musicIds)
         }
-        Log.d("Playlists: ", playlists.toString())
+        Log.d(tag, playlists.toString())
         return playlists ?: emptyList()
     }
 
