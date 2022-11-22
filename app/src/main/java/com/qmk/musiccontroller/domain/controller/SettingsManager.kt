@@ -10,12 +10,11 @@ import com.qmk.musiccontroller.domain.model.ServerConfigurationModel
 import kotlinx.coroutines.flow.*
 import java.io.IOException
 
-
 data class UserPreferences(
     val server_url: String
 )
 
-class SettingsController(private val dataStore: DataStore<Preferences>) {
+class SettingsManager(private val dataStore: DataStore<Preferences>) {
     private val tag = "SettingsController"
     private val settingsAPI = RetrofitHelper.getInstance().create(SettingsAPI::class.java)
 
