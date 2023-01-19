@@ -11,6 +11,26 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/channel" />
+            <option value="$PROJECT_DIR$/channel/channel_presentation" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/core_data" />
+            <option value="$PROJECT_DIR$/core/core_domain" />
+            <option value="$PROJECT_DIR$/core/core_presentation" />
+            <option value="$PROJECT_DIR$/music" />
+            <option value="$PROJECT_DIR$/music/music_presentation" />
+            <option value="$PROJECT_DIR$/music_manager" />
+            <option value="$PROJECT_DIR$/music_manager/music_manager_data" />
+            <option value="$PROJECT_DIR$/music_manager/music_manager_domain" />
+            <option value="$PROJECT_DIR$/naming_rule" />
+            <option value="$PROJECT_DIR$/naming_rule/naming_rule_presentation" />
+            <option value="$PROJECT_DIR$/onboarding" />
+            <option value="$PROJECT_DIR$/onboarding/onboarding_presentation" />
+            <option value="$PROJECT_DIR$/playlist" />
+            <option value="$PROJECT_DIR$/playlist/playlist_presentation" />
+            <option value="$PROJECT_DIR$/setting" />
+            <option value="$PROJECT_DIR$/setting/setting_presentation" />
           </set>
         </option>
       </GradleProjectSettings>
