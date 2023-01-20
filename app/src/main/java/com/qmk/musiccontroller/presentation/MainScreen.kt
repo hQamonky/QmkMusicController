@@ -10,8 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.google.accompanist.pager.*
 import com.qmk.musiccontroller.R
-import com.qmk.musiccontroller.presentation.settings.SettingsDetailsScreen
-import com.qmk.musiccontroller.presentation.settings.SettingsScreen
 import kotlinx.coroutines.launch
 
 typealias ComposableFun = @Composable () -> Unit
@@ -40,7 +38,7 @@ sealed class TabItem(var icon: Int, var title: String, var screen: ComposableFun
     object Settings : TabItem(
         R.drawable.ic_settings_24,
         "Settings",
-        { SettingsScreen() }
+        { Text(text = "Settings Screen") }
     )
 }
 

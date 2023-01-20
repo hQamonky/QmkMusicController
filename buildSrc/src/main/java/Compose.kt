@@ -1,7 +1,8 @@
 object Compose {
     const val composeVersion = "1.1.0-rc01"
+    const val material3Version = "1.0.0-alpha02"
     const val composeCompilerVersion = "1.1.0-rc02"
-    const val material = "androidx.compose.material:material:$composeVersion"
+    const val material = "androidx.compose.material3:material3:$material3Version"
     const val ui = "androidx.compose.ui:ui:$composeVersion"
     const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:$composeVersion"
     const val runtime = "androidx.compose.runtime:runtime:$composeVersion"
@@ -18,4 +19,8 @@ object Compose {
 
     private const val lifecycleVersion = "2.4.0"
     const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion"
+
+    const val accompanistPagerVersion = "0.25.0"
+    const val accompanistPager = "com.google.accompanist:accompanist-pager:$accompanistPagerVersion"
+    const val accompanistPagerIndicator = "com.google.accompanist:accompanist-pager-indicators:$accompanistPagerVersion"
 }
