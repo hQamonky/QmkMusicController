@@ -3,9 +3,7 @@ package com.qmk.music_controller.music_manager_domain.di
 import com.qmk.music_controller.music_manager_domain.preferences.MusicManagerPreferences
 import com.qmk.music_controller.music_manager_domain.repository.MusicManagerRepository
 import com.qmk.music_controller.music_manager_domain.use_case.MusicManagerUseCases
-import com.qmk.music_controller.music_manager_domain.use_case.playlist.AddPlaylist
-import com.qmk.music_controller.music_manager_domain.use_case.playlist.GetPlaylists
-import com.qmk.music_controller.music_manager_domain.use_case.playlist.PlaylistUseCases
+import com.qmk.music_controller.music_manager_domain.use_case.playlist.*
 import com.qmk.music_controller.music_manager_domain.use_case.settings.*
 import dagger.Module
 import dagger.Provides
@@ -25,8 +23,14 @@ object MusicManagerDomainModule {
     ): MusicManagerUseCases{
         return MusicManagerUseCases(
             playlistUseCases = PlaylistUseCases(
-                getPlaylists = GetPlaylists(),
-                addPlaylist = AddPlaylist(repository)
+                getPlaylists = GetPlaylists(repository),
+                addPlaylist = AddPlaylist(repository),
+                getPlaylist = GetPlaylist(repository),
+                updatePlaylist = UpdatePlaylist(repository),
+                deletePlaylist = DeletePlaylist(repository),
+                downloadPlaylists = DownloadPlaylists(repository),
+                downloadPlaylist = DownloadPlaylist(repository),
+                archiveMusic = ArchiveMusic(repository)
             ),
             settingsUseCases = SettingsUseCases(
                 getServerInfo = GetServerInfo(preferences),

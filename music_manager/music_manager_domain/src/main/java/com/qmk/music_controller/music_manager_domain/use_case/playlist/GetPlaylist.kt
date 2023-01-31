@@ -5,15 +5,20 @@ import com.qmk.music_controller.core_domain.util.UiText
 import com.qmk.music_controller.music_manager_domain.model.Playlist
 import com.qmk.music_controller.music_manager_domain.repository.MusicManagerRepository
 
-class GetPlaylists(
+class GetPlaylist(
     private val repository: MusicManagerRepository
 )  {
-    suspend operator fun invoke(): Result {
-        val playlists = repository.getPlaylists()
-        return if (playlists.isSuccess) {
-            Result.Success(playlists.getOrNull() ?: emptyList())
+    suspend operator fun invoke(
+        playlist: Playlist
+    ): Result {
+        val playlistResponse = repository.getPlaylist(playlist.id)
+        return if (playlistResponse.isSuccess) {
+            playlistResponse.getOrNull()?.let {
+                Result.Success(it)
+            } ?:
+            Result.Error(UiText.StringResource(R.string.unknown_error))
         } else {
-            playlists.exceptionOrNull()?.message?.let {
+            playlistResponse.exceptionOrNull()?.message?.let {
                 Result.Error(UiText.DynamicString(it))
             } ?:
             Result.Error(UiText.StringResource(R.string.unknown_error))
@@ -22,7 +27,7 @@ class GetPlaylists(
 
     sealed class Result {
         data class Success(
-            val playlists: List<Playlist>
+            val playlists: Playlist
         ): Result()
         data class Error(val message: UiText): Result()
     }
