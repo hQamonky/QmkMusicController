@@ -6,6 +6,7 @@ import com.qmk.music_controller.music_manager_domain.use_case.MusicManagerUseCas
 import com.qmk.music_controller.music_manager_domain.use_case.playlist.AddPlaylist
 import com.qmk.music_controller.music_manager_domain.use_case.playlist.GetPlaylists
 import com.qmk.music_controller.music_manager_domain.use_case.playlist.PlaylistUseCases
+import com.qmk.music_controller.music_manager_domain.use_case.settings.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,6 +27,14 @@ object MusicManagerDomainModule {
             playlistUseCases = PlaylistUseCases(
                 getPlaylists = GetPlaylists(),
                 addPlaylist = AddPlaylist(repository)
+            ),
+            settingsUseCases = SettingsUseCases(
+                getServerInfo = GetServerInfo(preferences),
+                setServerInfo = SetServerInfo(preferences),
+                factoryReset = FactoryReset(repository),
+                updateYoutubeDl = UpdateYoutubeDl(repository),
+                getServerSettings = GetServerSettings(repository),
+                setServerSettings = SetServerSettings(repository)
             )
         )
     }
