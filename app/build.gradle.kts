@@ -56,7 +56,9 @@ dependencies {
     implementation(Compose.material)
     implementation(Compose.runtime)
     implementation(Compose.navigation)
+//    implementation(Compose.viewModelCompose)
     implementation(Compose.activityCompose)
+
     implementation(Compose.accompanistPager)
     implementation(Compose.accompanistPagerIndicator)
 
