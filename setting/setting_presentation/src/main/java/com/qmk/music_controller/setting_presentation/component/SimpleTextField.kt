@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -30,7 +31,7 @@ fun SimpleTextField(
     label: String,
     labelStyle: TextStyle = LocalTextStyle.current,
     fieldInitialValue: String = "",
-    fieldTextStyle: TextStyle = TextStyle.Default,
+    fieldTextStyle: TextStyle = TextStyle.Default.copy(color = MaterialTheme.colorScheme.onSurface),
     hint: String = "",
     shouldShowHint: Boolean = false,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -49,10 +50,12 @@ fun SimpleTextField(
 
         Box {
             BasicTextField(
+                textStyle = fieldTextStyle,
                 value = fieldInitialValue,
                 onValueChange = onFiledValueChange,
                 singleLine = true,
                 keyboardOptions = keyboardOptions,
+                cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurface),
                 modifier = Modifier
                     .clip(RoundedCornerShape(5.dp))
                     .padding(2.dp)
@@ -78,40 +81,5 @@ fun SimpleTextField(
                 )
             }
         }
-
-
-
-
-//        Box(modifier = Modifier) {
-//            BasicTextField(
-//                modifier = Modifier
-//                    .clip(RoundedCornerShape(5.dp))
-//                    .padding(2.dp)
-//                    .shadow(
-//                        elevation = 2.dp,
-//                        shape = RoundedCornerShape(5.dp)
-//                    )
-//                    .background(MaterialTheme.colorScheme.surface)
-//                    .fillMaxWidth()
-//                    .padding(spacing.spaceMedium)
-//                    .padding(end = spacing.spaceMedium)
-//                    .onFocusChanged { onFocusChanged(it) },
-//                value = fieldInitialValue,
-//                onValueChange = onFiledValueChange,
-//                textStyle = fieldTextStyle,
-//                keyboardOptions = keyboardOptions,
-//                singleLine = true
-//            )
-//        }
-//        if (shouldShowHint) {
-//            Text(
-//                text = hint,
-//                fontWeight = FontWeight.Light,
-//                color = Color.LightGray,
-//                modifier = Modifier
-//                    .align(Start)
-//                    .padding(start = spacing.spaceMedium)
-//            )
-//        }
     }
 }
