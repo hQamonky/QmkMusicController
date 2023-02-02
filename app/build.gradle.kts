@@ -68,7 +68,9 @@ dependencies {
 //    implementation(project(Modules.channelPresentation))
 //    implementation(project(Modules.musicPresentation))
 //    implementation(project(Modules.namingRulePresentation))
-//    implementation(project(Modules.onboardingPresentation))
+    implementation(project(Modules.onboardingPresentation))
+    implementation(project(Modules.musicManagerData))
+    implementation(project(Modules.musicManagerDomain))
 //    implementation(project(Modules.playlistPresentation))
 //    implementation(project(Modules.settingPresentation))
 

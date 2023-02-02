@@ -52,6 +52,7 @@ object MusicManagerDomainModule {
                 deleteNamingRule = DeleteNamingRule(repository)
             ),
             settingsUseCases = SettingsUseCases(
+                testConnection = TestConnection(repository),
                 getServerInfo = GetServerInfo(preferences),
                 setServerInfo = SetServerInfo(preferences),
                 factoryReset = FactoryReset(repository),

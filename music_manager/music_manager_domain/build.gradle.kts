@@ -5,4 +5,7 @@ apply {
 dependencies {
     "implementation"(project(Modules.coreDomain))
     "implementation"(Coroutines.coroutines)
+
+    "implementation"(Retrofit.retrofit)
+    "implementation"(Retrofit.gsonConverter)
 }

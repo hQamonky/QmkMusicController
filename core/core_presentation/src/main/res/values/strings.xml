@@ -1,0 +1,5 @@
+<resources>
+    <string name="ip_address">IP Address</string>
+    <string name="port_number">Port Number</string>
+    <string name="next">Next</string>
+</resources>

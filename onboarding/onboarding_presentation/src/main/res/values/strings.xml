@@ -1,0 +1,4 @@
+<resources>
+    <string name="server_info_title">Server Info</string>
+    <string name="server_info_description">Enter the required information to connect to the QmkMusicManager server.</string>
+</resources>

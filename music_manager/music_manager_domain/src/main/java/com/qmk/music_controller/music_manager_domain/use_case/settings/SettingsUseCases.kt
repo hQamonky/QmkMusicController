@@ -6,5 +6,6 @@ data class SettingsUseCases(
     val getServerSettings: GetServerSettings,
     val setServerInfo: SetServerInfo,
     val setServerSettings: SetServerSettings,
+    val testConnection: TestConnection,
     val updateYoutubeDl: UpdateYoutubeDl
 )
