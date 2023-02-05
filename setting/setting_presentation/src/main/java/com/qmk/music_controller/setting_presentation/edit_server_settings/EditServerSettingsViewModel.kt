@@ -45,7 +45,9 @@ class EditServerSettingsViewModel @Inject constructor(
 
             state = state.copy(
                 musicDirectory = musicDir,
+                isDlOccurrenceHintVisible = musicDir.isBlank(),
                 downloadOccurrence = downloadOccurrence,
+                isMusicDirHintVisible = (downloadOccurrence == null),
                 autoDownload = autoDownload
             )
         }
@@ -85,6 +87,9 @@ class EditServerSettingsViewModel @Inject constructor(
     }
 
     fun onSaveClick() {
+        state = state.copy(
+            processState = ProcessState.PROCESSING
+        )
         viewModelScope.launch {
             val serverSettings = ServerSettings(
                 musicFolder = state.musicDirectory,
@@ -92,6 +97,9 @@ class EditServerSettingsViewModel @Inject constructor(
                 autoDownload = state.autoDownload
             )
             useCases.setServerSettings(serverSettings)
+            state = state.copy(
+                processState = ProcessState.STANDBY
+            )
             _uiEvent.send(UiEvent.NavigateUp)
         }
     }

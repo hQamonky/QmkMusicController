@@ -39,74 +39,87 @@ fun EditServerInfoScreen(
             }
         }
     }
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(state = scrollState, enabled = true)
-    ) {
-        Row {
-            IconButton(
-                modifier = Modifier.align(CenterVertically),
-                onClick = { viewModel.onBackClick() }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = stringResource(
-                        id = com.qmk.music_controller.core_presentation.R.string.back))
-            }
-            Text(
-                modifier = Modifier.padding(spacing.spaceMedium),
-                text = stringResource(id = R.string.server_info_title),
-                style = MaterialTheme.typography.headlineSmall
+    if (state.processState == ProcessState.PROCESSING) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center)
             )
         }
-        Spacer(modifier = Modifier.height(spacing.spaceSmall))
-        SimpleTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(spacing.spaceMedium),
-            label = stringResource(id = com.qmk.music_controller.core_presentation.R.string.ip_address),
-            fieldInitialValue = state.ipAddress,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number
-            ),
-            onFiledValueChange = {
-                viewModel.onIPEnter(it)
-            },
-            hint = "192.168.0.1",
-            shouldShowHint = state.isIpHintVisible,
-            onFocusChanged = {
-                viewModel.onIPFocusChange(it.isFocused)
-            }
-        )
-        Spacer(modifier = Modifier.height(spacing.spaceSmall))
-        SimpleTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(spacing.spaceMedium),
-            label = stringResource(id = com.qmk.music_controller.core_presentation.R.string.port_number),
-            fieldInitialValue = port,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number
-            ),
-            onFiledValueChange = {
-                viewModel.onPortEnter(it)
-            },
-            hint = "8092",
-            shouldShowHint = state.isPortHintVisible,
-            onFocusChanged = {
-                viewModel.onPortFocusChange(it.isFocused)
-            }
-        )
-        Spacer(modifier = Modifier.height(spacing.spaceSmall))
-        Button(
-            modifier = Modifier
-                .padding(spacing.spaceMedium)
-                .align(CenterHorizontally),
-            onClick = { viewModel.onSaveClick() }
+    } else {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .verticalScroll(state = scrollState, enabled = true)
         ) {
-            Text(text = stringResource(
-                id = com.qmk.music_controller.core_presentation.R.string.save))
+            Row {
+                IconButton(
+                    modifier = Modifier.align(CenterVertically),
+                    onClick = { viewModel.onBackClick() }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = stringResource(
+                            id = com.qmk.music_controller.core_presentation.R.string.back
+                        )
+                    )
+                }
+                Text(
+                    modifier = Modifier.padding(spacing.spaceMedium),
+                    text = stringResource(id = R.string.server_info_title),
+                    style = MaterialTheme.typography.headlineSmall
+                )
+            }
+            Spacer(modifier = Modifier.height(spacing.spaceSmall))
+            SimpleTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(spacing.spaceMedium),
+                label = stringResource(id = com.qmk.music_controller.core_presentation.R.string.ip_address),
+                fieldInitialValue = state.ipAddress,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number
+                ),
+                onFiledValueChange = {
+                    viewModel.onIPEnter(it)
+                },
+                hint = "192.168.0.1",
+                shouldShowHint = state.isIpHintVisible,
+                onFocusChanged = {
+                    viewModel.onIPFocusChange(it.isFocused)
+                }
+            )
+            Spacer(modifier = Modifier.height(spacing.spaceSmall))
+            SimpleTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(spacing.spaceMedium),
+                label = stringResource(id = com.qmk.music_controller.core_presentation.R.string.port_number),
+                fieldInitialValue = port,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number
+                ),
+                onFiledValueChange = {
+                    viewModel.onPortEnter(it)
+                },
+                hint = "8092",
+                shouldShowHint = state.isPortHintVisible,
+                onFocusChanged = {
+                    viewModel.onPortFocusChange(it.isFocused)
+                }
+            )
+            Spacer(modifier = Modifier.height(spacing.spaceSmall))
+            Button(
+                modifier = Modifier
+                    .padding(spacing.spaceMedium)
+                    .align(CenterHorizontally),
+                onClick = { viewModel.onSaveClick() }
+            ) {
+                Text(
+                    text = stringResource(
+                        id = com.qmk.music_controller.core_presentation.R.string.save
+                    )
+                )
+            }
         }
     }
 }

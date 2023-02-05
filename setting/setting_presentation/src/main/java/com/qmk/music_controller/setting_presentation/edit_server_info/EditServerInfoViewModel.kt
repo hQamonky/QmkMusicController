@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.qmk.music_controller.core_domain.util.UiText
 import com.qmk.music_controller.core_presentation.UiEvent
 import com.qmk.music_controller.music_manager_domain.model.ServerInfo
 import com.qmk.music_controller.music_manager_domain.use_case.settings.SettingsUseCases
@@ -61,12 +60,18 @@ class EditServerInfoViewModel @Inject constructor(
     }
 
     fun onSaveClick() {
+        state = state.copy(
+            processState = ProcessState.PROCESSING
+        )
         viewModelScope.launch {
             val serverInfo = ServerInfo(
                 url = state.ipAddress,
                 port = state.portNumber
             )
             useCases.setServerInfo(serverInfo)
+            state = state.copy(
+                processState = ProcessState.STANDBY
+            )
             _uiEvent.send(UiEvent.NavigateUp)
         }
     }
