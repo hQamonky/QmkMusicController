@@ -8,11 +8,13 @@ import androidx.navigation.compose.rememberNavController
 import com.qmk.music_controller.setting_presentation.display.DisplaySettingsScreen
 import com.qmk.music_controller.setting_presentation.edit_server_info.EditServerInfoScreen
 import com.qmk.music_controller.setting_presentation.edit_server_settings.EditServerSettingsScreen
+import com.qmk.music_controller.setting_presentation.factory_reset.FactoryResetScreen
 import com.qmk.music_controller.setting_presentation.main.SettingsRoute.DISPLAY_SETTINGS
 import com.qmk.music_controller.setting_presentation.main.SettingsRoute.EDIT_SERVER_INFO
 import com.qmk.music_controller.setting_presentation.main.SettingsRoute.EDIT_SERVER_SETTINGS
 import com.qmk.music_controller.setting_presentation.main.SettingsRoute.FACTORY_RESET
 import com.qmk.music_controller.setting_presentation.main.SettingsRoute.UPDATE_YOUTUBE_DL
+import com.qmk.music_controller.setting_presentation.update_youtube_dl.UpdateYoutubeDlScreen
 
 @Composable
 fun SettingsScreen() {
@@ -44,10 +46,10 @@ fun SettingsScreen() {
             EditServerSettingsScreen(onNavigateUp = { navController.navigate(DISPLAY_SETTINGS) })
         }
         composable(UPDATE_YOUTUBE_DL) {
-            Text(text = "Update youtube-dl")
+            UpdateYoutubeDlScreen(onNavigateUp = { navController.navigate(DISPLAY_SETTINGS) })
         }
         composable(FACTORY_RESET) {
-            Text(text = "Factory reset")
+            FactoryResetScreen(onNavigateUp = { navController.navigate(DISPLAY_SETTINGS) })
         }
     }
 }

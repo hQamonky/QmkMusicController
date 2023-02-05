@@ -6,4 +6,6 @@
     <string name="auto_download_title">Download Automatically</string>
     <string name="update_youtube_dl">Update youtube-dl</string>
     <string name="factory_reset">Factory Reset</string>
+    <string name="update_youtube_dl_description">Are you sure you want to update youtube-dl?</string>
+    <string name="factory_reset_description">Are you sure you want to reset the server? This will delete all entries in the database, and add default naming rules.</string>
 </resources>

@@ -69,10 +69,10 @@ class EditServerInfoViewModel @Inject constructor(
                 port = state.portNumber
             )
             useCases.setServerInfo(serverInfo)
+            _uiEvent.send(UiEvent.NavigateUp)
             state = state.copy(
                 processState = ProcessState.STANDBY
             )
-            _uiEvent.send(UiEvent.NavigateUp)
         }
     }
 }

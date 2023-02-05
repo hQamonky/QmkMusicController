@@ -97,10 +97,10 @@ class EditServerSettingsViewModel @Inject constructor(
                 autoDownload = state.autoDownload
             )
             useCases.setServerSettings(serverSettings)
+            _uiEvent.send(UiEvent.NavigateUp)
             state = state.copy(
                 processState = ProcessState.STANDBY
             )
-            _uiEvent.send(UiEvent.NavigateUp)
         }
     }
 }

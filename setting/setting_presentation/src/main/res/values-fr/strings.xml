@@ -6,4 +6,7 @@
     <string name="auto_download_title">Téléchargement Automatique</string>
     <string name="update_youtube_dl">Mettre à jour youtube-dl</string>
     <string name="factory_reset">Restauration d\'Usine</string>
+    <string name="update_youtube_dl_description">Êtes-vous sûr de vouloir mettre à jour youtube-dl?</string>
+    <string name="factory_reset_description">Êtes-vous sûr de vouloir restaurer le serveur ? Cette action supprimera toutes les entrées de la base de données, et ajoutera les règles de nommage par défaut.</string>
+
 </resources>
