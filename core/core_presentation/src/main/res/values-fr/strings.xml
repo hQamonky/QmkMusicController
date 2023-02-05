@@ -2,4 +2,10 @@
     <string name="ip_address">Adresse IP</string>
     <string name="port_number">Numéro de Port</string>
     <string name="next">Suivant</string>
+    <string name="edit">Modifier</string>
+    <string name="enabled">Activé</string>
+    <string name="disabled">Désactivé</string>
+    <string name="unknown">Inconu</string>
+    <string name="save">Sauvegarder</string>
+    <string name="back">Retour</string>
 </resources>

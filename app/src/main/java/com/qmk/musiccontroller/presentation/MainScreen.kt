@@ -1,5 +1,6 @@
 package com.qmk.musiccontroller.presentation
 
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.TabRowDefaults
@@ -9,6 +10,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.google.accompanist.pager.*
+import com.qmk.music_controller.setting_presentation.main.SettingsScreen
 import com.qmk.musiccontroller.R
 import kotlinx.coroutines.launch
 
@@ -38,7 +40,7 @@ sealed class TabItem(var icon: Int, var title: String, var screen: ComposableFun
     object Settings : TabItem(
         R.drawable.ic_settings_24,
         "Settings",
-        { Text(text = "Settings Screen") }
+        { SettingsScreen() }
     )
 }
 
@@ -56,7 +58,11 @@ fun MainScreen() {
     Scaffold(
         bottomBar = { Tabs(tabs = tabs, pagerState = pagerState) }
     ) {
-        TabsContent(tabs = tabs, pagerState = pagerState)
+        TabsContent(
+            modifier = Modifier.padding(it),
+            tabs = tabs,
+            pagerState = pagerState
+        )
     }
 }
 
@@ -86,8 +92,17 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun TabsContent(tabs: List<TabItem>, pagerState: PagerState) {
-    HorizontalPager(state = pagerState, count = tabs.size) { page ->
+fun TabsContent(
+    modifier: Modifier = Modifier,
+    tabs: List<TabItem>,
+    pagerState: PagerState
+) {
+    HorizontalPager(
+        modifier = modifier,
+        state = pagerState,
+        count = tabs.size,
+        userScrollEnabled = false
+    ) { page ->
         tabs[page].screen()
     }
 }

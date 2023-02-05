@@ -1,0 +1,9 @@
+<resources>
+    <string name="server_info_title">Info Serveur</string>
+    <string name="server_configuration_title">Configuration Serveur</string>
+    <string name="download_occurrence_title">Interval de Téléchargement</string>
+    <string name="music_directory_title">Dossier de Music</string>
+    <string name="auto_download_title">Téléchargement Automatique</string>
+    <string name="update_youtube_dl">Mettre à jour youtube-dl</string>
+    <string name="factory_reset">Restauration d\'Usine</string>
+</resources>

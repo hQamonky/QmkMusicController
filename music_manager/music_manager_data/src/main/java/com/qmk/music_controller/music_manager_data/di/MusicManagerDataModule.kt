@@ -54,9 +54,7 @@ object MusicManagerDataModule {
         preferences: MusicManagerPreferences
     ): MusicManagerApi {
         val serverInfo = preferences.loadServerInfo()
-        val fullUrl =
-            if (serverInfo.port == null) serverInfo.url
-            else serverInfo.url + ":" + serverInfo.port
+        val fullUrl = "http://${serverInfo.url}${serverInfo.port?.let { ":$it" }}"
         return Retrofit.Builder()
             .baseUrl(fullUrl)
             .addConverterFactory(MoshiConverterFactory.create())

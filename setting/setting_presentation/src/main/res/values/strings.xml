@@ -1,0 +1,9 @@
+<resources>
+    <string name="server_info_title">Server Info</string>
+    <string name="server_configuration_title">Server Configuration</string>
+    <string name="download_occurrence_title">Download Occurrence</string>
+    <string name="music_directory_title">Music Directory</string>
+    <string name="auto_download_title">Download Automatically</string>
+    <string name="update_youtube_dl">Update youtube-dl</string>
+    <string name="factory_reset">Factory Reset</string>
+</resources>
