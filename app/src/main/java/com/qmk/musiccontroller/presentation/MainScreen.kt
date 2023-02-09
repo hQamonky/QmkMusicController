@@ -10,6 +10,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.google.accompanist.pager.*
+import com.qmk.music_controller.playlist_presentation.main.PlaylistNavigation
 import com.qmk.music_controller.setting_presentation.main.SettingsScreen
 import com.qmk.musiccontroller.R
 import kotlinx.coroutines.launch
@@ -20,7 +21,7 @@ sealed class TabItem(var icon: Int, var title: String, var screen: ComposableFun
     object Playlists : TabItem(
         R.drawable.ic_playlist_24,
         "Playlists",
-        { Text(text = "Playlists Screen") }
+        { PlaylistNavigation() }
     )
     object Music : TabItem(
         R.drawable.ic_music_note_24,

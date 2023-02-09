@@ -72,7 +72,7 @@ dependencies {
     implementation(project(Modules.onboardingPresentation))
     implementation(project(Modules.musicManagerData))
     implementation(project(Modules.musicManagerDomain))
-//    implementation(project(Modules.playlistPresentation))
+    implementation(project(Modules.playlistPresentation))
     implementation(project(Modules.settingPresentation))
 
     implementation(AndroidX.coreKtx)

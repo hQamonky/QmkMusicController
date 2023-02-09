@@ -1,0 +1,13 @@
+<resources>
+    <string name="playlist_added">Playlist ajoutée !</string>
+    <string name="add_playlist">Ajouter une playlist</string>
+    <string name="archive_music">Archiver les music</string>
+    <string name="playlist_deleted">Playlist supprimée !</string>
+
+    <string name="loading_get_playlist_info">Récupération des infos de la playlist.</string>
+
+    <string name="delete_playlist">Supprimer la playlist</string>
+    <string name="confirm_delete_playlist">Voulez-vous vraiment supprimer %1$s ?</string>
+    <string name="deleting_playlist">Suppression de %1$s…</string>
+
+</resources>

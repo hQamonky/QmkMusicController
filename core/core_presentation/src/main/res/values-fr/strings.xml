@@ -1,6 +1,8 @@
 <resources>
     <string name="ip_address">Adresse IP</string>
     <string name="port_number">Numéro de Port</string>
+    <string name="url">URL</string>
+    <string name="name">Nom</string>
     <string name="next">Suivant</string>
     <string name="edit">Modifier</string>
     <string name="enabled">Activé</string>
@@ -10,4 +12,9 @@
     <string name="back">Retour</string>
     <string name="cancel">Annuler</string>
     <string name="confirm">Confirmer</string>
+    <string name="error">Erreur</string>
+    <string name="retry">Réessayer</string>
+    <string name="download">Télécharger</string>
+    <string name="playlists">Playlists</string>
+    <string name="serve_error">Erreur serveur : %1$s</string>
 </resources>

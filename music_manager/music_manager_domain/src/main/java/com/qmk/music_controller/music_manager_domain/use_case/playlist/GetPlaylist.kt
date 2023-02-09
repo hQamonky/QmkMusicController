@@ -27,7 +27,7 @@ class GetPlaylist(
 
     sealed class Result {
         data class Success(
-            val playlists: Playlist
+            val playlist: Playlist
         ): Result()
         data class Error(val message: UiText): Result()
     }

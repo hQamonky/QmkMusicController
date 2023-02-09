@@ -35,6 +35,17 @@ fun DisplaySettingsScreen(
             .fillMaxSize()
             .verticalScroll(state = scrollState, enabled = true)
     ) {
+        Text(
+            modifier = Modifier.padding(spacing.spaceMedium),
+            text = stringResource(id = R.string.settings),
+            style = MaterialTheme.typography.headlineMedium
+        )
+        Divider(modifier = Modifier
+            .padding(
+                top = spacing.spaceSmall,
+                bottom = spacing.spaceSmall
+            )
+        )
         TitleElement(
             title = stringResource(id = R.string.server_info_title)
         ) { onEditServerInfoClick() }

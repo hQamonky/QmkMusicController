@@ -1,4 +1,5 @@
 <resources>
+    <string name="settings">Paramètres</string>
     <string name="server_info_title">Info Serveur</string>
     <string name="server_configuration_title">Configuration Serveur</string>
     <string name="download_occurrence_title">Interval de Téléchargement</string>
