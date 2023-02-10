@@ -28,6 +28,38 @@ class PlaylistViewModel @Inject constructor(
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
+    fun downloadPlaylists() {
+        state = state.copy(
+            loadingState = LoadingState.LOADING,
+            customMessage = null
+        )
+        viewModelScope.launch {
+            when(val result = useCases.downloadPlaylists()) {
+                is DownloadPlaylists.Result.Success -> {
+                    _uiEvent.send(UiEvent.NavigateTo(LIST))
+                    _uiEvent.send(UiEvent.ShowSnackBar(UiText.StringResource(
+                        R.string.playlists_downloaded)))
+                    state = state.copy(
+                        loadingState = LoadingState.STANDBY,
+                        customMessage = null
+                    )
+                }
+                is DownloadPlaylists.Result.Error -> {
+//                    state = state.copy(customMessage = result.message)
+//                    _uiEvent.send(UiEvent.NavigateTo(ERROR))
+                    viewModelScope.launch {
+                        state = state.copy(
+                            loadingState = LoadingState.STANDBY,
+                            customMessage = result.message
+                        )
+                        _uiEvent.send(UiEvent.NavigateTo(LIST))
+                        _uiEvent.send(UiEvent.ShowSnackBar(result.message))
+                    }
+                }
+            }
+        }
+    }
+
     private suspend fun getPlaylist(id: String, onProcessSuccess: (playlist: Playlist) -> Unit) {
         state = state.copy(
             loadingState = LoadingState.LOADING,

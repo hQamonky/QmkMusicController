@@ -19,6 +19,7 @@ import com.qmk.music_controller.core_presentation.component.LoadingScreen
 import com.qmk.music_controller.playlist_presentation.add.AddPlaylistScreen
 import com.qmk.music_controller.playlist_presentation.delete.DeletePlaylistScreen
 import com.qmk.music_controller.playlist_presentation.download.DownloadPlaylistScreen
+import com.qmk.music_controller.playlist_presentation.download.DownloadPlaylistsScreen
 import com.qmk.music_controller.playlist_presentation.edit.EditPlaylistScreen
 import com.qmk.music_controller.playlist_presentation.list.LoadingState
 import com.qmk.music_controller.playlist_presentation.list.PlaylistsScreen
@@ -128,7 +129,12 @@ fun PlaylistNavigation(
                     }
                 }
                 composable(DOWNLOAD_PLAYLISTS) {
-
+                    DownloadPlaylistsScreen(
+                        onConfirmClick = {
+                            viewModel.downloadPlaylists()
+                        },
+                        onCancelClick = { navController.navigate(LIST) }
+                    )
                 }
                 composable(ARCHIVE_MUSIC) {
 

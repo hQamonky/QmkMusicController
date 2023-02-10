@@ -5,6 +5,7 @@
     <string name="playlist_updated">Playlist updated !</string>
     <string name="playlist_deleted">Playlist deleted !</string>
     <string name="playlist_downloaded">Playlist downloaded !</string>
+    <string name="playlists_downloaded">Playlists downloaded !</string>
 
     <string name="loading_get_playlist_info">Getting playlist info.</string>
 
@@ -16,5 +17,8 @@
 
     <string name="download_playlist">Download Playlist</string>
     <string name="confirm_download_playlist">Do you really want to download %1$s ?</string>
+
+    <string name="download_playlists">Download Playlists</string>
+    <string name="confirm_download_playlists">Do you want to download all playlists ?</string>
 
 </resources>
