@@ -8,10 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.qmk.music_controller.core_domain.util.UiText
 import com.qmk.music_controller.core_presentation.UiEvent
 import com.qmk.music_controller.music_manager_domain.model.Playlist
-import com.qmk.music_controller.music_manager_domain.use_case.playlist.DeletePlaylist
-import com.qmk.music_controller.music_manager_domain.use_case.playlist.GetPlaylist
-import com.qmk.music_controller.music_manager_domain.use_case.playlist.PlaylistUseCases
-import com.qmk.music_controller.music_manager_domain.use_case.playlist.UpdatePlaylist
+import com.qmk.music_controller.music_manager_domain.use_case.playlist.*
 import com.qmk.music_controller.playlist_presentation.R
 import com.qmk.music_controller.playlist_presentation.list.LoadingState
 import com.qmk.music_controller.playlist_presentation.main.PlaylistRoute.LIST
@@ -182,6 +179,38 @@ class PlaylistViewModel @Inject constructor(
             getPlaylist(id) {
                 viewModelScope.launch {
                     _uiEvent.send(UiEvent.NavigateTo(PlaylistRoute.DOWNLOAD_PLAYLIST))
+                }
+            }
+        }
+    }
+
+    fun downloadPlaylist(playlist: Playlist) {
+        state = state.copy(
+            loadingState = LoadingState.LOADING,
+            customMessage = null
+        )
+        viewModelScope.launch {
+            when(val result = useCases.downloadPlaylist(playlist)) {
+                is DownloadPlaylist.Result.Success -> {
+                    _uiEvent.send(UiEvent.NavigateTo(LIST))
+                    _uiEvent.send(UiEvent.ShowSnackBar(UiText.StringResource(
+                        R.string.playlist_downloaded)))
+                    state = state.copy(
+                        loadingState = LoadingState.STANDBY,
+                        customMessage = null
+                    )
+                }
+                is DownloadPlaylist.Result.Error -> {
+//                    state = state.copy(customMessage = result.message)
+//                    _uiEvent.send(UiEvent.NavigateTo(ERROR))
+                    viewModelScope.launch {
+                        state = state.copy(
+                            loadingState = LoadingState.STANDBY,
+                            customMessage = result.message
+                        )
+                        _uiEvent.send(UiEvent.NavigateTo(LIST))
+                        _uiEvent.send(UiEvent.ShowSnackBar(result.message))
+                    }
                 }
             }
         }

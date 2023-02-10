@@ -4,6 +4,7 @@
     <string name="archive_music">Archiver les music</string>
     <string name="playlist_updated">Playlist miase à jour !</string>
     <string name="playlist_deleted">Playlist supprimée !</string>
+    <string name="playlist_downloaded">Playlist téléchargée !</string>
 
     <string name="loading_get_playlist_info">Récupération des infos de la playlist.</string>
 
@@ -12,5 +13,8 @@
     <string name="deleting_playlist">Suppression de %1$s…</string>
 
     <string name="edit_playlist">Modifier la playlist</string>
+
+    <string name="download_playlist">Télécharger la playlist</string>
+    <string name="confirm_download_playlist">Voulez-vous vraiment télécharger %1$s ?</string>
 
 </resources>

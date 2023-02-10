@@ -68,10 +68,10 @@ interface MusicManagerApi {
     @POST("/playlists")
     suspend fun postPlaylists(@Body playlist: PlaylistAddDto): Response<PlaylistDto?>
 
-    @GET("/playlists/download")
+    @POST("/playlists/download")
     suspend fun downloadPlaylists(): Response<List<PlaylistDownloadDto>>
 
-    @GET("/playlists/archive-music")
+    @POST("/playlists/archive-music")
     suspend fun archiveMusic(): Response<List<String>>
 
     @GET("/playlists/{id}")
@@ -85,7 +85,7 @@ interface MusicManagerApi {
     @DELETE("/playlists/{id}")
     suspend fun deletePlaylist(@Path("id") id: String): Response<String>
 
-    @GET("/playlists/{id}/download")
+    @POST("/playlists/{id}/download")
     suspend fun downloadPlaylist(@Path("id") id: String): Response<PlaylistDownloadDto>
 
 
