@@ -1,8 +1,6 @@
 package com.qmk.music_controller.playlist_presentation.main
 
 object PlaylistRoute {
-    const val LOADING = "loading"
-    const val ERROR = "error"
     const val LIST = "list"
     const val ADD_PLAYLIST = "add_playlist"
     const val EDIT_PLAYLIST = "edit_playlist"

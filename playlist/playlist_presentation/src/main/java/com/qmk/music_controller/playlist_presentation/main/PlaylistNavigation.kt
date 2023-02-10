@@ -10,16 +10,16 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.qmk.music_controller.core_presentation.UiEvent
 import com.qmk.music_controller.core_presentation.component.ErrorScreen
 import com.qmk.music_controller.core_presentation.component.LoadingScreen
 import com.qmk.music_controller.playlist_presentation.add.AddPlaylistScreen
 import com.qmk.music_controller.playlist_presentation.delete.DeletePlaylistScreen
+import com.qmk.music_controller.playlist_presentation.edit.EditPlaylistScreen
+import com.qmk.music_controller.playlist_presentation.list.LoadingState
 import com.qmk.music_controller.playlist_presentation.list.PlaylistsScreen
 import com.qmk.music_controller.playlist_presentation.main.PlaylistRoute.ADD_PLAYLIST
 import com.qmk.music_controller.playlist_presentation.main.PlaylistRoute.ARCHIVE_MUSIC
@@ -27,9 +27,7 @@ import com.qmk.music_controller.playlist_presentation.main.PlaylistRoute.DELETE_
 import com.qmk.music_controller.playlist_presentation.main.PlaylistRoute.DOWNLOAD_PLAYLIST
 import com.qmk.music_controller.playlist_presentation.main.PlaylistRoute.DOWNLOAD_PLAYLISTS
 import com.qmk.music_controller.playlist_presentation.main.PlaylistRoute.EDIT_PLAYLIST
-import com.qmk.music_controller.playlist_presentation.main.PlaylistRoute.ERROR
 import com.qmk.music_controller.playlist_presentation.main.PlaylistRoute.LIST
-import com.qmk.music_controller.playlist_presentation.main.PlaylistRoute.LOADING
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -62,95 +60,80 @@ fun PlaylistNavigation(
         modifier = Modifier.fillMaxSize(),
         snackbarHost = { SnackbarHost(snackBarHostState) }
     ) { padding ->
-        NavHost(
-            modifier = Modifier.padding(padding),
-            navController = navController,
-            startDestination = LIST
-        ) {
-            composable(LOADING) {
-                LoadingScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    text = state.customMessage?.asString(context)
-                )
-            }
-            composable(ERROR) {
-                ErrorScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    text = state.customMessage?.asString(context)
-                )
-            }
-            composable(LIST) {
-                PlaylistsScreen(
-                    onAddPlaylistClick = { navController.navigate(ADD_PLAYLIST) },
-                    onArchiveClick = { navController.navigate(ARCHIVE_MUSIC) },
-                    onDownloadClick = { navController.navigate(DOWNLOAD_PLAYLISTS) },
-                    onEditClick = { navController.navigate("$EDIT_PLAYLIST/$it") },
-                    onDeleteClick = {
-                        viewModel.getPlaylist(it) { playlist -> navController.navigate(
-                            "$DELETE_PLAYLIST/${playlist.id}/${playlist.name}"
-                        ) }
-                    },
-                    onDownloadPlaylistClick = { navController.navigate("$DOWNLOAD_PLAYLIST/$it") }
-                )
-            }
-            composable(ADD_PLAYLIST) {
-                AddPlaylistScreen {
-                    it?.let {
-                        scope.launch {
-                            snackBarHostState.showSnackbar(it)
+        when(state.loadingState) {
+            LoadingState.STANDBY -> NavHost(
+                modifier = Modifier.padding(padding),
+                navController = navController,
+                startDestination = LIST
+            ) {
+                composable(LIST) {
+                    PlaylistsScreen(
+                        onAddPlaylistClick = { navController.navigate(ADD_PLAYLIST) },
+                        onArchiveClick = { navController.navigate(ARCHIVE_MUSIC) },
+                        onDownloadClick = { navController.navigate(DOWNLOAD_PLAYLISTS) },
+                        onEditClick = { viewModel.getPlaylistForEdit(it) },
+                        onDeleteClick = { viewModel.getPlaylistForDelete(it) },
+                        onDownloadPlaylistClick = { viewModel.getPlaylistForDownload(it) }
+                    )
+                }
+                composable(ADD_PLAYLIST) {
+                    AddPlaylistScreen {
+                        it?.let {
+                            scope.launch {
+                                snackBarHostState.showSnackbar(it)
+                            }
                         }
+                        navController.navigate(LIST)
                     }
-                    navController.navigate(LIST)
+                }
+                composable(EDIT_PLAYLIST) {
+                    state.processingPlaylist?.let { playlist ->
+                        EditPlaylistScreen(
+                            name = state.editPlaylistState.name,
+                            shouldShowHint = state.editPlaylistState.isNameHintVisible,
+                            onFocusChanged = {
+                                viewModel.onEditNameFocusChange(it.isFocused)
+                            },
+                            onFiledValueChange = {
+                                viewModel.onEditNameEnter(it)
+                            },
+                            onConfirmClick = {
+                                viewModel.editPlaylist(playlist)
+                            },
+                            onCancelClick = { navController.navigate(LIST) }
+                        )
+                    }
+                }
+                composable(DELETE_PLAYLIST) {
+                    state.processingPlaylist?.let { playlist ->
+                        DeletePlaylistScreen(
+                            playlist = playlist,
+                            onConfirmClick = {
+                                viewModel.deletePlaylist(playlist)
+                            },
+                            onCancelClick = { navController.navigate(LIST) }
+                        )
+                    }
+                }
+                composable(DOWNLOAD_PLAYLIST) {
+
+                }
+                composable(DOWNLOAD_PLAYLISTS) {
+
+                }
+                composable(ARCHIVE_MUSIC) {
+
                 }
             }
-            composable(
-                route = "$EDIT_PLAYLIST/{id}",
-                arguments = listOf(
-                    navArgument("id") {
-                        type = NavType.StringType
-                    },
-                )
-            ) {
-
-            }
-            composable(
-                route = "$DELETE_PLAYLIST/{id}/{name}",
-                arguments = listOf(
-                    navArgument("id") {
-                        type = NavType.StringType
-                    },
-                    navArgument("name") {
-                        type = NavType.StringType
-                    }
-                )
-            ) {
-                val id = it.arguments?.getString("id")!!
-                val name = it.arguments?.getString("name")!!
-                DeletePlaylistScreen(
-                    id = id,
-                    name = name,
-                    onConfirmClick = { playlist ->
-                        viewModel.deletePlaylist(playlist)
-                    },
-                    onCancelClick = { navController.navigate(LIST) }
-                )
-            }
-            composable(
-                route = "$DOWNLOAD_PLAYLIST/{id}",
-                arguments = listOf(
-                    navArgument("id") {
-                        type = NavType.StringType
-                    },
-                )
-            ) {
-
-            }
-            composable(DOWNLOAD_PLAYLISTS) {
-
-            }
-            composable(ARCHIVE_MUSIC) {
-
-            }
+            LoadingState.LOADING -> LoadingScreen(
+                modifier = Modifier.fillMaxSize(),
+                text = state.customMessage?.asString(context)
+            )
+            LoadingState.ERROR -> ErrorScreen(
+                modifier = Modifier.fillMaxSize(),
+                text = state.customMessage?.asString(context)
+            )
         }
+
     }
 }

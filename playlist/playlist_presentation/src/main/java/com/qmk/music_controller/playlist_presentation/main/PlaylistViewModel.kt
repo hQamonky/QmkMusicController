@@ -11,10 +11,10 @@ import com.qmk.music_controller.music_manager_domain.model.Playlist
 import com.qmk.music_controller.music_manager_domain.use_case.playlist.DeletePlaylist
 import com.qmk.music_controller.music_manager_domain.use_case.playlist.GetPlaylist
 import com.qmk.music_controller.music_manager_domain.use_case.playlist.PlaylistUseCases
+import com.qmk.music_controller.music_manager_domain.use_case.playlist.UpdatePlaylist
 import com.qmk.music_controller.playlist_presentation.R
-import com.qmk.music_controller.playlist_presentation.main.PlaylistRoute.ERROR
+import com.qmk.music_controller.playlist_presentation.list.LoadingState
 import com.qmk.music_controller.playlist_presentation.main.PlaylistRoute.LIST
-import com.qmk.music_controller.playlist_presentation.main.PlaylistRoute.LOADING
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -31,38 +31,157 @@ class PlaylistViewModel @Inject constructor(
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    fun getPlaylist(id: String, onProcessSuccess: (playlist: Playlist) -> Unit) {
+    private suspend fun getPlaylist(id: String, onProcessSuccess: (playlist: Playlist) -> Unit) {
+        state = state.copy(
+            loadingState = LoadingState.LOADING,
+            customMessage = UiText.StringResource(
+                R.string.loading_get_playlist_info)
+        )
+        when(val result = useCases.getPlaylist(id)) {
+            is GetPlaylist.Result.Success -> {
+                state = state.copy(
+                    loadingState = LoadingState.STANDBY,
+                    customMessage = null,
+                    processingPlaylist = result.playlist
+                )
+                onProcessSuccess(result.playlist)
+            }
+            is GetPlaylist.Result.Error -> {
+                state = state.copy(
+                    loadingState = LoadingState.ERROR,
+                    customMessage = result.message,
+                    processingPlaylist = null
+                )
+            }
+        }
+    }
+
+
+    // Edit Playlist -----------------------------
+
+
+    fun getPlaylistForEdit(id: String) {
         viewModelScope.launch {
-            state = state.copy(customMessage = UiText.StringResource(
-                R.string.loading_get_playlist_info))
-            _uiEvent.send(UiEvent.NavigateTo(LOADING))
-            when(val result = useCases.getPlaylist(id)) {
-                is GetPlaylist.Result.Success -> {
-                    onProcessSuccess(result.playlist)
+            getPlaylist(id) {
+                state = state.copy(
+                    editPlaylistState = state.editPlaylistState.copy(
+                        name = it.name
+                    )
+                )
+                viewModelScope.launch {
+                    _uiEvent.send(UiEvent.NavigateTo(PlaylistRoute.EDIT_PLAYLIST))
                 }
-                is GetPlaylist.Result.Error -> {
-                    state = state.copy(customMessage = result.message)
-                    _uiEvent.send(UiEvent.NavigateTo(ERROR))
+            }
+        }
+    }
+
+    fun onEditNameEnter(name: String) {
+        state = state.copy(
+            editPlaylistState = state.editPlaylistState.copy(
+                name = name,
+                isNameHintVisible = name.isBlank()
+            )
+        )
+    }
+
+    fun onEditNameFocusChange(isFocused: Boolean) {
+        state = state.copy(
+            editPlaylistState = state.editPlaylistState.copy(
+                isNameHintVisible = !isFocused && state.editPlaylistState.name.isBlank()
+            )
+        )
+    }
+
+    fun editPlaylist(playlist: Playlist) {
+        state = state.copy(
+            loadingState = LoadingState.LOADING,
+            customMessage = null
+        )
+        viewModelScope.launch {
+            val newPlaylist = playlist.copy(name = state.editPlaylistState.name)
+            when(val result = useCases.updatePlaylist(newPlaylist)) {
+                is UpdatePlaylist.Result.Success -> {
+                    _uiEvent.send(UiEvent.NavigateTo(LIST))
+                    _uiEvent.send(UiEvent.ShowSnackBar(UiText.StringResource(
+                        R.string.playlist_updated)))
+                    state = state.copy(
+                        loadingState = LoadingState.STANDBY,
+                        customMessage = null
+                    )
+                }
+                is UpdatePlaylist.Result.Error -> {
+//                    state = state.copy(
+//                        loadingState = LoadingState.ERROR,
+//                        customMessage = result.message
+//                    )
+                    viewModelScope.launch {
+                        state = state.copy(
+                            loadingState = LoadingState.STANDBY,
+                            customMessage = result.message
+                        )
+                        _uiEvent.send(UiEvent.NavigateTo(LIST))
+                        _uiEvent.send(UiEvent.ShowSnackBar(result.message))
+                    }
+                }
+            }
+        }
+    }
+
+
+    // Delete Playlist -----------------------------
+
+
+    fun getPlaylistForDelete(id: String) {
+        viewModelScope.launch {
+            getPlaylist(id) {
+                viewModelScope.launch {
+                    _uiEvent.send(UiEvent.NavigateTo(PlaylistRoute.DELETE_PLAYLIST))
                 }
             }
         }
     }
 
     fun deletePlaylist(playlist: Playlist) {
+        state = state.copy(
+            loadingState = LoadingState.LOADING,
+            customMessage = null
+        )
         viewModelScope.launch {
-            state = state.copy(customMessage = null)
-            _uiEvent.send(UiEvent.NavigateTo(LOADING))
             when(val result = useCases.deletePlaylist(playlist)) {
                 is DeletePlaylist.Result.Success -> {
                     _uiEvent.send(UiEvent.NavigateTo(LIST))
                     _uiEvent.send(UiEvent.ShowSnackBar(UiText.StringResource(
                         R.string.playlist_deleted)))
+                    state = state.copy(
+                        loadingState = LoadingState.STANDBY,
+                        customMessage = null
+                    )
                 }
                 is DeletePlaylist.Result.Error -> {
 //                    state = state.copy(customMessage = result.message)
 //                    _uiEvent.send(UiEvent.NavigateTo(ERROR))
-                    _uiEvent.send(UiEvent.NavigateTo(LIST))
-                    _uiEvent.send(UiEvent.ShowSnackBar(result.message))
+                    viewModelScope.launch {
+                        state = state.copy(
+                            loadingState = LoadingState.STANDBY,
+                            customMessage = result.message
+                        )
+                        _uiEvent.send(UiEvent.NavigateTo(LIST))
+                        _uiEvent.send(UiEvent.ShowSnackBar(result.message))
+                    }
+                }
+            }
+        }
+    }
+
+
+    // Download Playlist -----------------------------
+
+
+    fun getPlaylistForDownload(id: String) {
+        viewModelScope.launch {
+            getPlaylist(id) {
+                viewModelScope.launch {
+                    _uiEvent.send(UiEvent.NavigateTo(PlaylistRoute.DOWNLOAD_PLAYLIST))
                 }
             }
         }

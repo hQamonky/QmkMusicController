@@ -1,4 +1,4 @@
-package com.qmk.music_controller.playlist_presentation.delete
+package com.qmk.music_controller.playlist_presentation.main.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,15 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.qmk.music_controller.core_presentation.LocalSpacing
-import com.qmk.music_controller.music_manager_domain.model.Playlist
-import com.qmk.music_controller.playlist_presentation.R
+import com.qmk.music_controller.core_presentation.R
 
 @Composable
-fun DeletePlaylistScreen(
+fun ConfirmationDialog(
     modifier: Modifier = Modifier,
-    playlist: Playlist,
-    onConfirmClick: (playlist: Playlist) -> Unit = {},
-    onCancelClick: () -> Unit = {}
+    title: String,
+    onConfirmClick: () -> Unit = {},
+    onCancelClick: () -> Unit = {},
+    content: @Composable () -> Unit
 ) {
     val spacing = LocalSpacing.current
     Column(
@@ -28,13 +28,10 @@ fun DeletePlaylistScreen(
     ) {
         Text(
             modifier = Modifier.padding(spacing.spaceMedium),
-            text = stringResource(id = R.string.delete_playlist),
+            text = title,
             style = MaterialTheme.typography.headlineMedium
         )
-        Text(
-            modifier = Modifier.padding(spacing.spaceMedium),
-            text = stringResource(id = R.string.confirm_delete_playlist, playlist.name)
-        )
+        content()
         Row {
             Button(
                 modifier = Modifier
@@ -42,17 +39,23 @@ fun DeletePlaylistScreen(
                     .weight(1f),
                 onClick = { onCancelClick() }
             ) {
-                Text(text = stringResource(
-                    id = com.qmk.music_controller.core_presentation.R.string.cancel))
+                Text(
+                    text = stringResource(
+                        id = R.string.cancel
+                    )
+                )
             }
             Button(
                 modifier = Modifier
                     .padding(spacing.spaceMedium)
                     .weight(1f),
-                onClick = { onConfirmClick(playlist) }
+                onClick = { onConfirmClick() }
             ) {
-                Text(text = stringResource(
-                    id = com.qmk.music_controller.core_presentation.R.string.confirm))
+                Text(
+                    text = stringResource(
+                        id = R.string.confirm
+                    )
+                )
             }
         }
     }
