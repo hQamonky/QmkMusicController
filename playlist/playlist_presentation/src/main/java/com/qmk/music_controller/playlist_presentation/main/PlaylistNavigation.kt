@@ -17,6 +17,7 @@ import com.qmk.music_controller.core_presentation.UiEvent
 import com.qmk.music_controller.core_presentation.component.ErrorScreen
 import com.qmk.music_controller.core_presentation.component.LoadingScreen
 import com.qmk.music_controller.playlist_presentation.add.AddPlaylistScreen
+import com.qmk.music_controller.playlist_presentation.archive.ArchiveMusicScreen
 import com.qmk.music_controller.playlist_presentation.delete.DeletePlaylistScreen
 import com.qmk.music_controller.playlist_presentation.download.DownloadPlaylistScreen
 import com.qmk.music_controller.playlist_presentation.download.DownloadPlaylistsScreen
@@ -137,7 +138,12 @@ fun PlaylistNavigation(
                     )
                 }
                 composable(ARCHIVE_MUSIC) {
-
+                    ArchiveMusicScreen(
+                        onConfirmClick = {
+                            viewModel.archiveMusic()
+                        },
+                        onCancelClick = { navController.navigate(LIST) }
+                    )
                 }
             }
             LoadingState.LOADING -> LoadingScreen(

@@ -6,6 +6,7 @@
     <string name="playlist_deleted">Playlist deleted !</string>
     <string name="playlist_downloaded">Playlist downloaded !</string>
     <string name="playlists_downloaded">Playlists downloaded !</string>
+    <string name="music_archived">Music archived !</string>
 
     <string name="loading_get_playlist_info">Getting playlist info.</string>
 
@@ -20,5 +21,7 @@
 
     <string name="download_playlists">Download Playlists</string>
     <string name="confirm_download_playlists">Do you want to download all playlists ?</string>
+
+    <string name="confirm_archive_music">Do you really want to remove music in the \"Remove\" playlist ?</string>
 
 </resources>

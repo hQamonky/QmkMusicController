@@ -45,16 +45,36 @@ class PlaylistViewModel @Inject constructor(
                     )
                 }
                 is DownloadPlaylists.Result.Error -> {
-//                    state = state.copy(customMessage = result.message)
-//                    _uiEvent.send(UiEvent.NavigateTo(ERROR))
-                    viewModelScope.launch {
-                        state = state.copy(
-                            loadingState = LoadingState.STANDBY,
-                            customMessage = result.message
-                        )
-                        _uiEvent.send(UiEvent.NavigateTo(LIST))
-                        _uiEvent.send(UiEvent.ShowSnackBar(result.message))
-                    }
+                    state = state.copy(
+                        loadingState = LoadingState.ERROR,
+                        customMessage = result.message
+                    )
+                }
+            }
+        }
+    }
+
+    fun archiveMusic() {
+        state = state.copy(
+            loadingState = LoadingState.LOADING,
+            customMessage = null
+        )
+        viewModelScope.launch {
+            when(val result = useCases.archiveMusic()) {
+                is ArchiveMusic.Result.Success -> {
+                    _uiEvent.send(UiEvent.NavigateTo(LIST))
+                    _uiEvent.send(UiEvent.ShowSnackBar(UiText.StringResource(
+                        R.string.music_archived)))
+                    state = state.copy(
+                        loadingState = LoadingState.STANDBY,
+                        customMessage = null
+                    )
+                }
+                is ArchiveMusic.Result.Error -> {
+                    state = state.copy(
+                        loadingState = LoadingState.ERROR,
+                        customMessage = result.message
+                    )
                 }
             }
         }
@@ -187,8 +207,10 @@ class PlaylistViewModel @Inject constructor(
                     )
                 }
                 is DeletePlaylist.Result.Error -> {
-//                    state = state.copy(customMessage = result.message)
-//                    _uiEvent.send(UiEvent.NavigateTo(ERROR))
+//                    state = state.copy(
+//                        loadingState = LoadingState.ERROR,
+//                        customMessage = result.message
+//                    )
                     viewModelScope.launch {
                         state = state.copy(
                             loadingState = LoadingState.STANDBY,
@@ -233,16 +255,10 @@ class PlaylistViewModel @Inject constructor(
                     )
                 }
                 is DownloadPlaylist.Result.Error -> {
-//                    state = state.copy(customMessage = result.message)
-//                    _uiEvent.send(UiEvent.NavigateTo(ERROR))
-                    viewModelScope.launch {
-                        state = state.copy(
-                            loadingState = LoadingState.STANDBY,
-                            customMessage = result.message
-                        )
-                        _uiEvent.send(UiEvent.NavigateTo(LIST))
-                        _uiEvent.send(UiEvent.ShowSnackBar(result.message))
-                    }
+                    state = state.copy(
+                        loadingState = LoadingState.ERROR,
+                        customMessage = result.message
+                    )
                 }
             }
         }
