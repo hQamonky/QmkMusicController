@@ -57,7 +57,7 @@ interface MusicManagerApi {
 
     @Headers("Content-Type: application/json")
     @DELETE("/naming-rules/{id}")
-    suspend fun deleteNamingRule(@Path("id") id: String): Response<String>
+    suspend fun deleteNamingRule(@Path("id") id: String): Response<Unit>
 
 
     // Playlists

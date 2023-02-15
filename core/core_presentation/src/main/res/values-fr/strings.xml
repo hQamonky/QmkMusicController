@@ -20,4 +20,5 @@
     <string name="new_music">Nouvelles Musiques</string>
     <string name="validate">Valider</string>
     <string name="serve_error">Erreur serveur : %1$s</string>
+    <string name="naming_rules">Règles de Nommage</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.qmk.music_controller.playlist_presentation.main.component
+package com.qmk.music_controller.core_presentation.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

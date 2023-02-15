@@ -1,0 +1,15 @@
+<resources>
+    <string name="add_naming_rule">Add Rule</string>
+    <string name="edit_naming_rule">Edit Rule</string>
+    <string name="naming_rule_added">Rule added !</string>
+    <string name="naming_rule_deleted">Rule deleted !</string>
+    <string name="replace">Replace</string>
+    <string name="replace_by">Replace by</string>
+    <string name="priority">Priority</string>
+    <string name="loading_get_naming_rule_info">Getting rule info.</string>
+    <string name="naming_rule_updated">Rule updated !</string>
+
+    <string name="delete_naming_rule">Delete Rule</string>
+    <string name="confirm_delete_naming_rule">Do you really want to this rule ?</string>
+
+</resources>

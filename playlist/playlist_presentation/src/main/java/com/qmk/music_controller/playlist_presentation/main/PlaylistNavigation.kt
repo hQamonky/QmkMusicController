@@ -155,6 +155,5 @@ fun PlaylistNavigation(
                 text = state.customMessage?.asString(context)
             )
         }
-
     }
 }

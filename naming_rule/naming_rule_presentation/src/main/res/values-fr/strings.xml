@@ -1,0 +1,15 @@
+<resources>
+    <string name="add_naming_rule">Ajouter une règle</string>
+    <string name="edit_naming_rule">Modifier une règle</string>
+    <string name="naming_rule_added">Règle ajoutée !</string>
+    <string name="naming_rule_deleted">Règle supprimée !</string>
+    <string name="replace">Remplacer</string>
+    <string name="replace_by">Remplacer par</string>
+    <string name="priority">Priorité</string>
+    <string name="loading_get_naming_rule_info">Récupération des infos de la règle.</string>
+    <string name="naming_rule_updated">Règle mise à jour !</string>
+
+    <string name="delete_naming_rule">Supprimer la règle</string>
+    <string name="confirm_delete_naming_rule">Voulez-vous vraiment supprimer cette règle ?</string>
+
+</resources>
