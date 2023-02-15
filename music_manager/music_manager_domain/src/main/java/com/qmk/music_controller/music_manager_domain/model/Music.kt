@@ -9,7 +9,7 @@ data class Music(
     val title: String,
     val artist: String,
     val channelId: String,
-    val uploadDate: Date,
+    val uploadDate: String,
     val isNew: Boolean,
     val playlistsId: List<String>
 )

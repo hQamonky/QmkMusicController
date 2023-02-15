@@ -1,0 +1,9 @@
+<resources>
+    <string name="no_more_new_music">No more new music.</string>
+    <string name="music_filename">File name</string>
+    <string name="title">Title</string>
+    <string name="artist">Artist</string>
+    <string name="edit_music">Edit Music</string>
+    <string name="music_saved">Music saved !</string>
+
+</resources>

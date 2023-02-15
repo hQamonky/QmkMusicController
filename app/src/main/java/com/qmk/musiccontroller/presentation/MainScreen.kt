@@ -10,6 +10,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.google.accompanist.pager.*
+import com.qmk.music_controller.music_presentation.main.MusicScreen
 import com.qmk.music_controller.playlist_presentation.main.PlaylistNavigation
 import com.qmk.music_controller.setting_presentation.main.SettingsScreen
 import com.qmk.musiccontroller.R
@@ -26,7 +27,7 @@ sealed class TabItem(var icon: Int, var title: String, var screen: ComposableFun
     object Music : TabItem(
         R.drawable.ic_music_note_24,
         "Music",
-        { Text(text = "Music Screen") }
+        { MusicScreen() }
     )
     object Channels : TabItem(
         R.drawable.ic_subscriptions_24,

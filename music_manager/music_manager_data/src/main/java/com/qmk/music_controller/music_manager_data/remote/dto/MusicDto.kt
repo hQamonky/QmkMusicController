@@ -6,7 +6,7 @@ import java.util.*
 data class MusicDto(
     @field:Json(name = "id")
     val id: String,
-    @field:Json(name = "filename")
+    @field:Json(name = "fileName")
     val filename: String,
     @field:Json(name = "fileExtension")
     val fileExtension: String,
@@ -17,7 +17,7 @@ data class MusicDto(
     @field:Json(name = "uploaderId")
     val channelId: String,
     @field:Json(name = "uploadDate")
-    val uploadDate: Date,
+    val uploadDate: String,
     @field:Json(name = "isNew")
     val isNew: Boolean,
     @field:Json(name = "playlistIds")

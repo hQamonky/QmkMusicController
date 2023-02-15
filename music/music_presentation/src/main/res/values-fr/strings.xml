@@ -1,0 +1,9 @@
+<resources>
+    <string name="no_more_new_music">Pas d\'autre musique.</string>
+    <string name="music_filename">Nom du fichier</string>
+    <string name="title">Titre</string>
+    <string name="artist">Artiste</string>
+    <string name="edit_music">Modifier une musique</string>
+    <string name="music_saved">Musiques sauvegardées !</string>
+
+</resources>

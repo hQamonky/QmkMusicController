@@ -10,7 +10,7 @@ interface MusicManagerApi {
     suspend fun updateYoutubeDl(): Response<String>
 
     @POST("factory-reset")
-    suspend fun factoryReset(): Response<String>
+    suspend fun factoryReset(): Response<Unit>
 
 
     // Channels
@@ -25,7 +25,7 @@ interface MusicManagerApi {
     suspend fun postChannel(
         @Path("id") id: String,
         @Body namingFormat: NamingFormatDto
-    ): Response<String>
+    ): Response<Unit>
 
 
     // Music
@@ -34,7 +34,7 @@ interface MusicManagerApi {
 
     @Headers("Content-Type: application/json")
     @POST("/music/{id}")
-    suspend fun postMusic(@Path("id") id: String, @Body music: MusicDto): Response<String>
+    suspend fun postMusic(@Path("id") id: String, @Body music: MusicDto): Response<Unit>
 
 
     // Naming Rules
@@ -43,7 +43,7 @@ interface MusicManagerApi {
 
     @Headers("Content-Type: application/json")
     @POST("/naming-rules")
-    suspend fun postNamingRules(@Body namingRule: NamingRuleDto): Response<NamingRuleDto>
+    suspend fun postNamingRules(@Body namingRule: NamingRuleDto): Response<Unit>
 
     @GET("/naming-rules/{id}")
     suspend fun getNamingRule(@Path("id") id: String): Response<NamingRuleDto>
@@ -53,7 +53,7 @@ interface MusicManagerApi {
     suspend fun postNamingRule(
         @Path("id") id: String,
         @Body namingRule: NamingRuleDto
-    ): Response<String>
+    ): Response<Unit>
 
     @Headers("Content-Type: application/json")
     @DELETE("/naming-rules/{id}")
@@ -79,7 +79,7 @@ interface MusicManagerApi {
 
     @Headers("Content-Type: application/json")
     @POST("/playlists/{id}")
-    suspend fun postPlaylist(@Path("id") id: String, @Body playlist: PlaylistDto): Response<String>
+    suspend fun postPlaylist(@Path("id") id: String, @Body playlist: PlaylistDto): Response<Unit>
 
     @Headers("Content-Type: application/json")
     @DELETE("/playlists/{id}")
@@ -95,5 +95,5 @@ interface MusicManagerApi {
 
     @Headers("Content-Type: application/json")
     @POST("/settings")
-    suspend fun postSettings(@Body settings: ServerSettingsDto): Response<String>
+    suspend fun postSettings(@Body settings: ServerSettingsDto): Response<Unit>
 }
