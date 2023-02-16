@@ -14,6 +14,7 @@ data class MusicState(
 enum class ProcessState {
     STANDBY,
     EDITING,
+    ADDING_RULE,
     LOADING,
     ERROR
 }

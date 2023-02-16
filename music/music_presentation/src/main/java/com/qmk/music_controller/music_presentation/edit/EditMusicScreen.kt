@@ -22,8 +22,9 @@ fun EditMusicScreen(
     music: Music,
     onTitleValueChange: (textFieldValue: String) -> Unit,
     onArtistValueChange: (textFieldValue: String) -> Unit,
-    onCancelClick: () -> Unit,
     onSaveClick: () -> Unit,
+    onCancelClick: () -> Unit,
+    onAddRuleClick: () -> Unit,
     onPreviousClick: (() -> Unit)?,
     onNextClick: (() -> Unit)?
 ) {
@@ -106,11 +107,28 @@ fun EditMusicScreen(
                     bottom = spacing.spaceSmall
                 )
                 .fillMaxWidth(),
-            onClick = { onCancelClick() }
+            onClick = { onAddRuleClick() }
         ) {
             Text(
                 text = stringResource(
-                    id = com.qmk.music_controller.core_presentation.R.string.cancel
+                    id = com.qmk.music_controller.naming_rule_presentation.R.string.add_naming_rule
+                )
+            )
+        }
+        Button(
+            modifier = Modifier
+                .padding(
+                    start = spacing.spaceMedium,
+                    top = spacing.spaceMedium,
+                    end = spacing.spaceMedium,
+                    bottom = spacing.spaceSmall
+                )
+                .fillMaxWidth(),
+            onClick = { onSaveClick() }
+        ) {
+            Text(
+                text = stringResource(
+                    id = com.qmk.music_controller.core_presentation.R.string.save
                 )
             )
         }
@@ -123,11 +141,11 @@ fun EditMusicScreen(
                     bottom = spacing.spaceMedium
                 )
                 .fillMaxWidth(),
-            onClick = { onSaveClick() }
+            onClick = { onCancelClick() }
         ) {
             Text(
                 text = stringResource(
-                    id = com.qmk.music_controller.core_presentation.R.string.save
+                    id = com.qmk.music_controller.core_presentation.R.string.cancel
                 )
             )
         }

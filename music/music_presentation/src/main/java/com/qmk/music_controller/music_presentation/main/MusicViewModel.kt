@@ -11,7 +11,9 @@ import com.qmk.music_controller.music_manager_domain.model.Music
 import com.qmk.music_controller.music_manager_domain.use_case.music.GetNewMusic
 import com.qmk.music_controller.music_manager_domain.use_case.music.MusicUseCases
 import com.qmk.music_controller.music_manager_domain.use_case.music.UpdateMusic
+import com.qmk.music_controller.music_manager_domain.use_case.naming_rule.NamingRuleUseCases
 import com.qmk.music_controller.music_presentation.R
+import com.qmk.music_controller.naming_rule_presentation.add.AddNamingRuleViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -20,13 +22,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MusicViewModel @Inject constructor(
-    private val useCases: MusicUseCases
+    private val useCases: MusicUseCases,
+    namingRuleUseCases: NamingRuleUseCases
 ): ViewModel() {
     var state by mutableStateOf(MusicState())
         private set
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
+
+    val namingRuleViewModel = AddNamingRuleViewModel(
+        useCases = namingRuleUseCases
+    )
 
     init {
         loadNewMusic()
@@ -60,12 +67,21 @@ class MusicViewModel @Inject constructor(
         )
     }
 
+    fun onSaveValidationClick() {
+        applyMusicChanges()
+    }
+
     fun onCancelValidationClick() {
         loadNewMusic()
     }
 
-    fun onSaveValidationClick() {
-        applyMusicChanges()
+    fun onAddRuleClick() {
+        state = state.copy(processState = ProcessState.ADDING_RULE)
+    }
+
+    fun onFinishAddingRule() {
+        namingRuleViewModel.resetState()
+        state = state.copy(processState = ProcessState.EDITING)
     }
 
     fun onPreviousMusicClick() {

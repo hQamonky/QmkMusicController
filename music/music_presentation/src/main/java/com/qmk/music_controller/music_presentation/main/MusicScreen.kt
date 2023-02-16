@@ -20,6 +20,7 @@ import com.qmk.music_controller.core_presentation.component.LoadingScreen
 import com.qmk.music_controller.core_presentation.R
 import com.qmk.music_controller.music_presentation.edit.EditMusicScreen
 import com.qmk.music_controller.music_presentation.list.NewMusicScreen
+import com.qmk.music_controller.naming_rule_presentation.add.AddNamingRuleScreen
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,8 +71,9 @@ fun MusicScreen(
                         music = music,
                         onTitleValueChange = { viewModel.onTitleValueChange(it) },
                         onArtistValueChange = { viewModel.onArtistValueChange(it) },
-                        onCancelClick = { viewModel.onCancelValidationClick() },
                         onSaveClick = { viewModel.onSaveValidationClick() },
+                        onCancelClick = { viewModel.onCancelValidationClick() },
+                        onAddRuleClick = { viewModel.onAddRuleClick() },
                         onPreviousClick = onPreviousClick,
                         onNextClick = onNextClick
                     )
@@ -87,6 +89,14 @@ fun MusicScreen(
                 buttonText = stringResource(id = R.string.retry),
                 onButtonClick = { viewModel.onReloadClick() }
             )
+            ProcessState.ADDING_RULE -> {
+                AddNamingRuleScreen(
+                    viewModel = viewModel.namingRuleViewModel,
+                    onNavigateUp = {
+                        viewModel.onFinishAddingRule()
+                    }
+                )
+            }
         }
 
     }

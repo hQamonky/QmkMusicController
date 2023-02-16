@@ -27,6 +27,10 @@ class AddNamingRuleViewModel @Inject constructor(
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
+    fun resetState() {
+        state = AddNamingRuleState().copy()
+    }
+
     fun onReplaceEnter(value: String) {
         state = state.copy(replace = value)
     }
