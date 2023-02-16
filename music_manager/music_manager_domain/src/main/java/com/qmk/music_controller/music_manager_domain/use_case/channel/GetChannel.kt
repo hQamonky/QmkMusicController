@@ -27,7 +27,7 @@ class GetChannel(
 
     sealed class Result {
         data class Success(
-            val namingRule: Channel
+            val channel: Channel
         ): Result()
         data class Error(val message: UiText): Result()
     }

@@ -8,6 +8,8 @@
     <string name="edit">Edit</string>
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>
+    <string name="true_string">True</string>
+    <string name="false_string">False</string>
     <string name="unknown">Unknown</string>
     <string name="save">Save</string>
     <string name="back">Back</string>
@@ -21,4 +23,5 @@
     <string name="validate">Validate</string>
     <string name="serve_error">Server error : %1$s</string>
     <string name="naming_rules">Naming Rules</string>
+    <string name="channels">Channels</string>
 </resources>

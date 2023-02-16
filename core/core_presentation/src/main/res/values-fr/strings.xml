@@ -8,6 +8,8 @@
     <string name="edit">Modifier</string>
     <string name="enabled">Activé</string>
     <string name="disabled">Désactivé</string>
+    <string name="true_string">Vrai</string>
+    <string name="false_string">Faux</string>
     <string name="unknown">Inconu</string>
     <string name="save">Sauvegarder</string>
     <string name="back">Retour</string>
@@ -21,4 +23,5 @@
     <string name="validate">Valider</string>
     <string name="serve_error">Erreur serveur : %1$s</string>
     <string name="naming_rules">Règles de Nommage</string>
+    <string name="channels">Chaines</string>
 </resources>

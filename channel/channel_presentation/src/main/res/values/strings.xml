@@ -1,0 +1,8 @@
+<resources>
+    <string name="edit_channel">Edit Channel</string>
+    <string name="separator">Separator</string>
+    <string name="artist_before_title">Is artist before title</string>
+    <string name="loading_get_channel_info">Getting channel info.</string>
+    <string name="channel_updated">Channel updated !</string>
+
+</resources>

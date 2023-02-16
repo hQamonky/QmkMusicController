@@ -65,7 +65,7 @@ dependencies {
     implementation(DaggerHilt.hiltAndroid)
     kapt(DaggerHilt.hiltCompiler)
 
-//    implementation(project(Modules.channelPresentation))
+    implementation(project(Modules.channelPresentation))
     implementation(project(Modules.musicPresentation))
     implementation(project(Modules.namingRulePresentation))
     implementation(project(Modules.corePresentation))

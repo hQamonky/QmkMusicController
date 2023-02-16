@@ -10,6 +10,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.google.accompanist.pager.*
+import com.qmk.music_controller.channel_presentation.main.ChannelsNavigation
 import com.qmk.music_controller.music_presentation.main.MusicScreen
 import com.qmk.music_controller.naming_rule_presentation.main.NamingRulesNavigation
 import com.qmk.music_controller.playlist_presentation.main.PlaylistNavigation
@@ -33,7 +34,7 @@ sealed class TabItem(var icon: Int, var title: String, var screen: ComposableFun
     object Channels : TabItem(
         R.drawable.ic_subscriptions_24,
         "Channels",
-        { Text(text = "Channels Screen") }
+        { ChannelsNavigation() }
     )
     object Rules : TabItem(
         R.drawable.ic_balance_24,

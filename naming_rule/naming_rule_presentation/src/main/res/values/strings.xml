@@ -10,6 +10,6 @@
     <string name="naming_rule_updated">Rule updated !</string>
 
     <string name="delete_naming_rule">Delete Rule</string>
-    <string name="confirm_delete_naming_rule">Do you really want to this rule ?</string>
+    <string name="confirm_delete_naming_rule">Do you really want to delete this rule ?</string>
 
 </resources>

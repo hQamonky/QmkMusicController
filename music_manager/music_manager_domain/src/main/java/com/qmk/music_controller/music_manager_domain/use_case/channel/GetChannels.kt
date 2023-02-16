@@ -22,7 +22,7 @@ class GetChannels(
 
     sealed class Result {
         data class Success(
-            val namingRules: List<Channel>
+            val channels: List<Channel>
         ): Result()
         data class Error(val message: UiText): Result()
     }

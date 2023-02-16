@@ -1,0 +1,8 @@
+<resources>
+    <string name="edit_channel">Modifier une chaine</string>
+    <string name="separator">Séparateur</string>
+    <string name="artist_before_title">Atiste avant titre</string>
+    <string name="loading_get_channel_info">Récupération des infos de la chaine.</string>
+    <string name="channel_updated">Chaine mise à jour !</string>
+
+</resources>

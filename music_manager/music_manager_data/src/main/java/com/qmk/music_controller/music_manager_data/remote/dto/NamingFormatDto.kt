@@ -5,6 +5,6 @@ import com.squareup.moshi.Json
 data class NamingFormatDto(
     @field:Json(name = "separator")
     val separator: String,
-    @field:Json(name = "arist_before_title")
+    @field:Json(name = "artist_before_title")
     val aristIsBeforeTitle: Boolean
 )
