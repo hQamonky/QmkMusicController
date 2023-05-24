@@ -30,6 +30,10 @@ class ChannelViewModel @Inject constructor(
     private val _uiEvent = kotlinx.coroutines.channels.Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
+    fun resetState() {
+        state = ChannelState().copy()
+    }
+
     private suspend fun getChannel(
         id: String,
         onProcessSuccess: (channel: Channel) -> Unit

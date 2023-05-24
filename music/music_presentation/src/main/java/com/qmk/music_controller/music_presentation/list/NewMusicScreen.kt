@@ -41,7 +41,7 @@ fun NewMusicScreen(
             }
         }
         item {
-            Divider(modifier = Modifier.padding(bottom = spacing.spaceMedium))
+            Divider(modifier = Modifier.padding(bottom = spacing.spaceSmall))
         }
         items(newMusic) { music ->
             RowComponent(music = music)

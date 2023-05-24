@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.qmk.music_controller.channel_presentation.edit.EditChannelScreen
 import com.qmk.music_controller.core_presentation.UiEvent
 import com.qmk.music_controller.core_presentation.component.ErrorScreen
 import com.qmk.music_controller.core_presentation.component.LoadingScreen
@@ -74,6 +75,7 @@ fun MusicScreen(
                         onSaveClick = { viewModel.onSaveValidationClick() },
                         onCancelClick = { viewModel.onCancelValidationClick() },
                         onAddRuleClick = { viewModel.onAddRuleClick() },
+                        onUpdateChannelClick = { viewModel.onUpdateChannelClick() },
                         onPreviousClick = onPreviousClick,
                         onNextClick = onNextClick
                     )
@@ -97,7 +99,32 @@ fun MusicScreen(
                     }
                 )
             }
-        }
+            ProcessState.UPDATING_CHANNEL -> {
+                val channelState = viewModel.channelViewModel.state
+                val separator = channelState.editChannelState.separator
+                val artistBeforeTitle = channelState.editChannelState.isArtistBeforeTitle
 
+                viewModel.channelViewModel.state.processingChannel?.let { channel ->
+                    EditChannelScreen(
+                        separatorValue = separator,
+                        onSeparatorFiledValueChange = {
+                            viewModel.channelViewModel.onEditSeparatorEnter(it)
+                        },
+                        artistBeforeTitleValue = artistBeforeTitle,
+                        onArtistBeforeTitleChange = {
+                            viewModel.channelViewModel.onArtistBeforeTitleChange(it)
+                        },
+                        onConfirmClick = {
+                            viewModel.channelViewModel.editChannel(channel)
+                            viewModel.onFinishUpdatingChannel()
+                        },
+                        onCancelClick = {
+                            viewModel.channelViewModel.resetState()
+                            viewModel.onFinishUpdatingChannel()
+                        }
+                    )
+                }
+            }
+        }
     }
 }

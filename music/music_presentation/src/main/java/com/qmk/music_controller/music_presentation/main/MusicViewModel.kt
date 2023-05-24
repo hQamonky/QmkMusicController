@@ -5,9 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.qmk.music_controller.channel_presentation.main.ChannelViewModel
 import com.qmk.music_controller.core_domain.util.UiText
 import com.qmk.music_controller.core_presentation.UiEvent
 import com.qmk.music_controller.music_manager_domain.model.Music
+import com.qmk.music_controller.music_manager_domain.use_case.channel.ChannelUseCases
 import com.qmk.music_controller.music_manager_domain.use_case.music.GetNewMusic
 import com.qmk.music_controller.music_manager_domain.use_case.music.MusicUseCases
 import com.qmk.music_controller.music_manager_domain.use_case.music.UpdateMusic
@@ -23,7 +25,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MusicViewModel @Inject constructor(
     private val useCases: MusicUseCases,
-    namingRuleUseCases: NamingRuleUseCases
+    namingRuleUseCases: NamingRuleUseCases,
+    channelUseCases: ChannelUseCases
 ): ViewModel() {
     var state by mutableStateOf(MusicState())
         private set
@@ -31,9 +34,9 @@ class MusicViewModel @Inject constructor(
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    val namingRuleViewModel = AddNamingRuleViewModel(
-        useCases = namingRuleUseCases
-    )
+    val namingRuleViewModel = AddNamingRuleViewModel(useCases = namingRuleUseCases)
+
+    val channelViewModel = ChannelViewModel(useCases = channelUseCases)
 
     init {
         loadNewMusic()
@@ -79,8 +82,19 @@ class MusicViewModel @Inject constructor(
         state = state.copy(processState = ProcessState.ADDING_RULE)
     }
 
+    fun onUpdateChannelClick() {
+        state.currentMusic?.channelId?.let {
+            channelViewModel.getChannelForEdit(it)
+            state = state.copy(processState = ProcessState.UPDATING_CHANNEL)
+        }
+    }
+
     fun onFinishAddingRule() {
         namingRuleViewModel.resetState()
+        state = state.copy(processState = ProcessState.EDITING)
+    }
+
+    fun onFinishUpdatingChannel() {
         state = state.copy(processState = ProcessState.EDITING)
     }
 

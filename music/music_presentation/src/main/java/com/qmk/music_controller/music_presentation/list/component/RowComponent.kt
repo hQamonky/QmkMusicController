@@ -2,13 +2,12 @@ package com.qmk.music_controller.music_presentation.list.component
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Divider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.font.FontWeight
 import com.qmk.music_controller.core_presentation.LocalSpacing
 import com.qmk.music_controller.music_manager_domain.model.Music
 
@@ -26,7 +25,7 @@ fun RowComponent(
                 bottom = spacing.spaceExtraSmall
             ),
             text = "${music.filename}.${music.fileExtension}",
-            style = MaterialTheme.typography.headlineSmall
+            fontWeight = FontWeight.Bold
         )
         Row(
             modifier = Modifier
@@ -49,10 +48,6 @@ fun RowComponent(
             )
         }
         Divider(
-            modifier = Modifier.padding(
-                top = spacing.spaceSmall,
-                bottom = spacing.spaceSmall
-            ),
             color = Color.LightGray
         )
     }

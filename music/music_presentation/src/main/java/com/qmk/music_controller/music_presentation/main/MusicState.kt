@@ -15,6 +15,7 @@ enum class ProcessState {
     STANDBY,
     EDITING,
     ADDING_RULE,
+    UPDATING_CHANNEL,
     LOADING,
     ERROR
 }

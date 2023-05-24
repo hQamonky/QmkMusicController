@@ -12,7 +12,7 @@ import com.qmk.music_controller.setting_presentation.component.BooleanField
 import com.qmk.music_controller.setting_presentation.component.SimpleTextField
 
 @Composable
-fun EditChannelStateScreen(
+fun EditChannelScreen(
     modifier: Modifier = Modifier,
     separatorValue: String,
     onSeparatorFiledValueChange: (textFieldValue: String) -> Unit,

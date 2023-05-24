@@ -1,19 +1,19 @@
 package com.qmk.music_controller.music_presentation.edit
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.qmk.music_controller.core_presentation.LocalSpacing
-import com.qmk.music_controller.music_presentation.R
 import com.qmk.music_controller.music_manager_domain.model.Music
+import com.qmk.music_controller.music_presentation.R
 import com.qmk.music_controller.setting_presentation.component.SimpleTextField
 
 @Composable
@@ -25,11 +25,15 @@ fun EditMusicScreen(
     onSaveClick: () -> Unit,
     onCancelClick: () -> Unit,
     onAddRuleClick: () -> Unit,
+    onUpdateChannelClick: () -> Unit,
     onPreviousClick: (() -> Unit)?,
     onNextClick: (() -> Unit)?
 ) {
     val spacing = LocalSpacing.current
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+    ) {
         Text(
             modifier = Modifier
                 .fillMaxWidth()
@@ -112,6 +116,23 @@ fun EditMusicScreen(
             Text(
                 text = stringResource(
                     id = com.qmk.music_controller.naming_rule_presentation.R.string.add_naming_rule
+                )
+            )
+        }
+        Button(
+            modifier = Modifier
+                .padding(
+                    start = spacing.spaceMedium,
+                    top = spacing.spaceMedium,
+                    end = spacing.spaceMedium,
+                    bottom = spacing.spaceSmall
+                )
+                .fillMaxWidth(),
+            onClick = { onUpdateChannelClick() }
+        ) {
+            Text(
+                text = stringResource(
+                    id = com.qmk.music_controller.channel_presentation.R.string.edit_channel
                 )
             )
         }

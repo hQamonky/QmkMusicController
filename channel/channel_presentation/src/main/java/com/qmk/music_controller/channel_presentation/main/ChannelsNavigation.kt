@@ -16,7 +16,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.qmk.music_controller.channel_presentation.edit.EditChannelStateScreen
+import com.qmk.music_controller.channel_presentation.edit.EditChannelScreen
 import com.qmk.music_controller.channel_presentation.list.LoadingState
 import com.qmk.music_controller.channel_presentation.list.ChannelsScreen
 import com.qmk.music_controller.channel_presentation.main.ChannelRoute.EDIT_CHANNEL
@@ -68,14 +68,14 @@ fun ChannelsNavigation(
                     )
                 }
                 composable(EDIT_CHANNEL) {
-                    state.processingChannel?.let { namingRule ->
-                        EditChannelStateScreen(
+                    state.processingChannel?.let { channel ->
+                        EditChannelScreen(
                             separatorValue = state.editChannelState.separator,
                             artistBeforeTitleValue = state.editChannelState.isArtistBeforeTitle,
                             onSeparatorFiledValueChange = { viewModel.onEditSeparatorEnter(it) },
                             onArtistBeforeTitleChange = { viewModel.onArtistBeforeTitleChange(it) },
                             onConfirmClick = {
-                                viewModel.editChannel(namingRule)
+                                viewModel.editChannel(channel)
                             },
                             onCancelClick = { navController.navigate(LIST) }
                         )
